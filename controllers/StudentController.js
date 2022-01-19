@@ -3,17 +3,16 @@ const student = require("../models/Students");
 
 // Membuat Class StudentController
 class StudentController {
-  index(req, res) {
+  async index(req, res) {
     // TODO 4: Tampilkan data students
     // code here
-    student.all(function (result) {
-      const data = {
-        message: "Menampilkkan semua students",
-        data: result,
-      };
+    const students = await student.all();
+    const data = {
+      message: "Menampilkkan semua students",
+      data: students,
+    };
 
-      res.json(data);
-    });
+    res.json(data);
   }
 
   store(req, res) {
