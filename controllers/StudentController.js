@@ -15,14 +15,12 @@ class StudentController {
     res.json(data);
   }
 
-  store(req, res) {
-    const { nama } = req.body;
-
+  async store(req, res) {
+    const students = await student.create(req.body);
     // TODO 5: Tambahkan data students
     // code here
-    students.push(nama);
     const data = {
-      message: `Menambahkan data student: ${nama}`,
+      message: `Menambahkan data student: `,
       data: students,
     };
 
