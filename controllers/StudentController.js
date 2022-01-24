@@ -10,7 +10,7 @@ class StudentController {
     // data array harus lebih dari 0
     if (students.length > 0) {
       const data = {
-        message: "Menampilkkan semua students",
+        message: `Menampilkkan semua students`,
         data: students,
       };
 
