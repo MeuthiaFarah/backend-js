@@ -3,7 +3,7 @@ const db = require("../config/database");
 
 // buat class model
 class Student {
-  // method untuk query all data
+  // method untuk query all data (index)
   static all() {
     return new Promise((resolve, reject) => {
       // query ke database
@@ -14,7 +14,7 @@ class Student {
     });
   }
 
-  // method untuk query create data
+  // method untuk query create data (store)
   static async create(data) {
     const id = await new Promise((resolve, reject) => {
       // insert data ke db
@@ -24,17 +24,12 @@ class Student {
       });
     });
 
-    // query by id
-    return new Promise((resolve, reject) => {
-      const sql = "SELECT * FROM students WHERE id = ?";
-      db.query(sql, id, (err, result) => {
-        resolve(result);
-      });
-    });
+    // query by id ke object find
+    const student = this.find(id);
+    return student;
   }
 
-  // method untuk query update data
-  // mencari id
+  // method untuk query find data by id
   static find(id) {
     return new Promise((resolve, reject) => {
       const sql = "SELECT * FROM students WHERE id = ?";
@@ -46,6 +41,7 @@ class Student {
     });
   }
 
+  // method update data
   static async update(id, data) {
     // query update data
     await new Promise((resolve, reject) => {
@@ -59,13 +55,14 @@ class Student {
     return this.find(id);
   }
 
+  // query untuk delete data (destroy)
   static async delete(id) {
     await new Promise((resolve, reject) => {
       const sql = "DELETE FROM students WHERE id = ?";
       db.query(sql, id, (err, result) => {
         resolve(result);
-      })
-    })
+      });
+    });
   }
 }
 
